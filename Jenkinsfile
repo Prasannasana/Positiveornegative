@@ -7,8 +7,17 @@ pipeline {
       }
     }
     stage('Test') {
-      steps {
-        echo 'Testing some stuff ////'
+      parallel {
+        stage('Test') {
+          steps {
+            echo 'Testing some stuff ////'
+          }
+        }
+        stage('New Stage') {
+          steps {
+            bat(returnStatus: true, returnStdout: true, label: 'haha', script: 'dir C:\\')
+          }
+        }
       }
     }
   }
